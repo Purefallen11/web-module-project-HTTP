@@ -25,7 +25,21 @@ const EditMovieForm = (props) => {
 
     const handleSubmit = (e) => {
 		e.preventDefault();
+		axios
+			.put(`http://localhost:5000/api/movies/${id}`, movie)
+			.then(res => {
+				setMovie(res.data)
+				push(`/movies/${id}`);
+		})
 	}
+
+	useEffect(() => {
+		axios
+			.get(`http://localhost:5000/api/movies/${id}`)
+			.then(res => {
+				setMovie(res.data)
+		})
+	},[])
 	
 	const { title, director, genre, metascore, description } = movie;
 
